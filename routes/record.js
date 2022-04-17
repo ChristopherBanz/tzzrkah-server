@@ -59,7 +59,12 @@ recordRoutes.route("/update/:id").post(function (req, response) {
             highLevel: req.body.highLevel,
             date: req.body.date
         },
+
     };
+    db_connect.collection("high_score").update(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        response.json(res);
+    })
 });
 
     // This section will help you delete a record
@@ -71,6 +76,12 @@ recordRoutes.route("/update/:id").post(function (req, response) {
             console.log("1 document deleted");
             response.json(obj);
         });
+    });
+
+
+    // test api endpoint
+    recordRoutes.route("/api", (req,res) => {
+        res.json({message: "You sassy panda!!"});
     });
 
 module.exports = recordRoutes;
