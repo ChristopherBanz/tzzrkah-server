@@ -22,6 +22,15 @@ recordRoutes.route("/record").get(function (req, res) {
         });
 });
 
+// Custom Route
+
+recordRoutes.route("/testRoute").get(function (req,res){
+    let db_connect = dbo.getDb();
+    db_connect.collection("high_score").find({}).limit(3).sort({highScore: -1}).toArray(function (err, result){
+        if (err) throw err;
+        res.json(result);
+    })});
+
 // This section will help you get a single record by id
 recordRoutes.route("/record/:id").get(function (req, res) {
     let db_connect = dbo.getDb();
